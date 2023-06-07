@@ -4,8 +4,8 @@ import Peer from "simple-peer";
 import { useFirestore } from "../hooks/useFirestore";
 const SocketContext = createContext();
 
-// const socket = io("http://localhost:5000");
-const socket = io("http://localhost:3005");
+const socket = io("http://localhost:5000");
+// const socket = io("http://localhost:3000");
 // const socket = io('web-production-dcf0.up.railway.app');
 
 const ContextProvider = ({ children }) => {
@@ -49,8 +49,11 @@ const ContextProvider = ({ children }) => {
 		socket.on("me", (id) => setMe(id));
 		socket.on("callUser", ({ from, name: callerName, signal }) => {
 			setCall({ isReceivingCall: true, from, name: callerName, signal });
+			console.log("useEffect sockcket first")
 		});
+
 	}, [counter]);
+
 
 	const answerCall = () => {
 		setCallAccepted(true);
@@ -76,13 +79,14 @@ const ContextProvider = ({ children }) => {
 		setDocName(doctorName)
 
 		peer.on("signal", (data) => {
+			console.log("callUser,data",data,"me=>",me,"id=>",id)
 			socket.emit("callUser", {
 				userToCall: id,
 				signalData: data,
 				from: me,
 				name: doctorName,
 			});
-		});
+		});  /// yahn calluser event chala
 
 		peer.on("stream", (currentStream) => {
 			userVideo.current.srcObject = currentStream;

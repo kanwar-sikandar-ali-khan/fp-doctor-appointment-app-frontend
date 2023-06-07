@@ -2,7 +2,7 @@ import "./VideoPlayer.css";
 import { SocketContext } from "../SocketContext";
 import { useContext } from "react";
 
-const VideoPlayer = () => {
+const 	VideoPlayer = () => {
 	const {
 		docName,
 		callAccepted,

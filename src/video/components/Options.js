@@ -7,6 +7,7 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 const Options = ({ children }) => {
 	const { me, callAccepted, callEnded, leavePatientCall,leaveDoctorCall, callUser } =
 		useContext(SocketContext);
+		console.log("me in options ", me)
 	const { user, patients, doctors } = useAuthContext();
 	const [patient, setPatient] = useState(null)
 	const [doctor, setDoctor] = useState(null)
@@ -48,6 +49,7 @@ const Options = ({ children }) => {
 				<div className="root">
 					<div className="grid-container">
 						<div className="padding">
+					{		console.log("patient.callID.doctorDocID",patient)}
 							{ patient && patient.callID && patient.callID.doctorDocID &&
 								<button
 									className="btnn"

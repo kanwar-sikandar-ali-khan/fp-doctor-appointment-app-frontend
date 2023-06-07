@@ -1,6 +1,6 @@
 import "./Notification.css";
 import { useAuthContext } from "../../hooks/useAuthContext";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { useFirestore } from "../../hooks/useFirestore";
 import { SocketContext } from "../../video/SocketContext";
 import { useNavigate } from "react-router";
