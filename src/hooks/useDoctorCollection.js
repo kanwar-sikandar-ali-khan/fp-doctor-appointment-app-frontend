@@ -3,8 +3,8 @@ import { useEffect, useRef, useState } from "react";
 // config file
 import { projectFirestore } from "../firebase/config";
 
-export const useCollection = (collection, _orderBy) => {
-	const [documents, setDocuments] = useState(null);
+export const useDoctorCollection = (collection, _orderBy) => {
+	const [doctorDocuments, setDoctorDocuments] = useState(null);
     const [error, setError] = useState(null);
 
 	// to prevent infinite loop
@@ -23,8 +23,9 @@ export const useCollection = (collection, _orderBy) => {
 				});
 
 				// update states
-				setDocuments(results);
+				setDoctorDocuments(results);
 				setError(null);
+				console.log("first")
 			},
 			(error) => {
 				console.log(error);
@@ -34,7 +35,8 @@ export const useCollection = (collection, _orderBy) => {
 
 		// unsubscribe on unmount
 		return () => unsubscribe();
+		// unsubscribe()
 	}, [collection, orderBy]);
 
-	return { error, documents };
+	return { error, doctorDocuments };
 };

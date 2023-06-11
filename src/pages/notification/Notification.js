@@ -62,6 +62,7 @@ const Notification = () => {
 						setNotifications(doctor.notification);
 						setShowDoctor(true);
 						setDoctorDocID(doctor.docID);
+						console.log("65555555")
 					}
 				});
 			} else {

@@ -23,7 +23,10 @@ function Video() {
 				<h1>Video  <span style={{color:'orange'}}>Call</span> </h1>
 			</div>
 			<VideoPlayer/>
-			<Options doctorDocID={doctorDocID} >
+			{/* option is for doctor call */}
+			<Options doctorDocID={doctorDocID} >  
+
+			{/* notifications for patient accept call */}
 				<Notifications />
 			</Options>
 		</div>

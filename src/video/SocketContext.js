@@ -8,7 +8,7 @@ const socket = io("http://localhost:5000");
 // const socket = io("http://localhost:3000");
 // const socket = io('web-production-dcf0.up.railway.app');
 
-const ContextProvider = ({ children }) => {
+const SocketContextProvider = ({ children }) => {
 	const [callAccepted, setCallAccepted] = useState(false);
 	const [callEnded, setCallEnded] = useState(false);
 	const [stream, setStream] = useState();
@@ -46,11 +46,16 @@ const ContextProvider = ({ children }) => {
 		};
 		getUserMedia();
 
-		socket.on("me", (id) => setMe(id));
+		socket.on("me", (id) => {
+			setMe(id)
+			console.log("useEffect sockcket me")
+		});
 		socket.on("callUser", ({ from, name: callerName, signal }) => {
 			setCall({ isReceivingCall: true, from, name: callerName, signal });
 			console.log("useEffect sockcket first")
 		});
+
+
 
 	}, [counter]);
 
@@ -79,7 +84,7 @@ const ContextProvider = ({ children }) => {
 		setDocName(doctorName)
 
 		peer.on("signal", (data) => {
-			console.log("callUser,data",data,"me=>",me,"id=>",id)
+			console.log("callUser,data", data, "me=>", me, "id=>", id)
 			socket.emit("callUser", {
 				userToCall: id,
 				signalData: data,
@@ -155,4 +160,4 @@ const ContextProvider = ({ children }) => {
 	);
 };
 
-export { ContextProvider, SocketContext };
+export { SocketContextProvider, SocketContext };

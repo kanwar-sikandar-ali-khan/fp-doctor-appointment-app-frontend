@@ -1,6 +1,6 @@
 // hooks
 import { createContext, useEffect, useReducer } from "react";
-import { useCollection } from "../hooks/useCollection";
+import { useDoctorCollection } from "../hooks/useDoctorCollection";
 import { usePatientCollection } from "../hooks/usePatientCollection";
 // config file
 import { projectAuth } from "../firebase/config";
@@ -39,7 +39,7 @@ export const AuthContextProvider = ({ children }) => {
 		patient_error: null,
 	});
 
-	const { documents, error } = useCollection(
+	const { doctorDocuments, error } = useDoctorCollection(
 		"doctors"
 		// ["uid", "==", user.uid],
 		// ["createdAt", "ascn"]
@@ -49,8 +49,8 @@ export const AuthContextProvider = ({ children }) => {
 
 	// useEffect(() => {
 	// 	var distance;
-	// 	if (documents) {	
-	// 		documents.forEach((doctor) => {
+	// 	if (doctorDocuments) {	
+	// 		doctorDocuments.forEach((doctor) => {
 	// 			if (doctor.notification) {
 	// 				doctor.notification.forEach((not) => {
 	// 					distance = not.appointmentDate * 1000;
@@ -67,14 +67,15 @@ export const AuthContextProvider = ({ children }) => {
 	// 			}
 	// 		});
 	// 	}
-	// }, [documents]);
-
+	// }, [doctorDocuments]);
+	
 	useEffect(() => {
-		dispatch({ type: "DOCTOR_DATA", payload: documents });
+		dispatch({ type: "DOCTOR_DATA", payload: doctorDocuments });
 		dispatch({ type: "DOCTOR_DATA_ERROR", payload: error });
 		dispatch({ type: "PATIENT_DATA", payload: patientDocuments });
 		dispatch({ type: "PATIENT_DATA_ERROR", payload: patientError });
-	}, [documents, patientDocuments]);
+		console.log("first")
+	}, [doctorDocuments, patientDocuments]);
 
 	useEffect(() => {
 		const unsub = projectAuth.onAuthStateChanged((user) => {
