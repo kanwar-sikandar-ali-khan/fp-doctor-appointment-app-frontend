@@ -40,32 +40,32 @@ export default function Signup() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		// var uploadTask = storageRef.child(`images/${photo.name}`).put(photo);
+		var uploadTask = storageRef.child(`images/${photo.name}`).put(photo);
 
 		// Register three observers:
 		// 1. 'state_changed' observer, called any time the state changes
 		// 2. Error observer, called on failure
 		// 3. Completion observer, called on successful completion
-		// uploadTask.on(
-		// 	"state_changed",
-		// 	(snapshot) => {
-		// 		Observe state change events such as progress, pause, and resume
-		// 		Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-		// 		var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-		// 		setPhotoPending(progress);
-		// 	},
-		// 	(error) => {
-		// 		console.log(error.message);
-		// 	},
-		// 	() => {
-		// 		Handle successful uploads on complete
-		// 		For instance, get the download URL: https://firebasestorage.googleapis.com/...
-		// 		uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-		// 			setUrl(downloadURL);
-		// 		});
-		// 	}
-		// );
-		setUrl("https://thumbs.dreamstime.com/b/businessman-icon-image-male-avatar-profile-vector-glasses-beard-hairstyle-179728610.jpg");
+		uploadTask.on(
+			"state_changed",
+			(snapshot) => {
+				// Observe state change events such as progress, pause, and resume
+				// Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+				var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+				setPhotoPending(progress);
+			},
+			(error) => {
+				console.log(error.message);
+			},
+			() => {
+				// Handle successful uploads on complete
+				// For instance, get the download URL: https://firebasestorage.googleapis.com/...
+				uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+					setUrl(downloadURL);
+				});
+			}
+		);
+		// setUrl("https://thumbs.dreamstime.com/b/businessman-icon-image-male-avatar-profile-vector-glasses-beard-hairstyle-179728610.jpg");
 	};
 
 	return (
@@ -73,7 +73,7 @@ export default function Signup() {
 			<div className="containe">
 				<form onSubmit={handleSubmit} className="signup-form">
 					<h3 className="h1">
-						SignUP<span style={{ color: "orange" }}> Form</span>
+						SIGN UP<span style={{ color: "orange" }}> FORM</span>
 					</h3>
 
 					<div className="col-25">
@@ -170,20 +170,21 @@ export default function Signup() {
 					<div className="col-25">
 						<label>Photo</label>
 					</div>
-					<div>
+					<div className="w-100">
 						<input
 							type="file"
 							name="firstname"
 							placeholder="Picture"
 							onChange={(e) => setPhoto(e.target.files[0])}
+							className="btn btn-dark w-100"
 						/>
-						{photoPending && (
+						{/* {photoPending && (
 							<p className="percentage"
 							style={{color:'red',marginLeft:'230px',marginTop:'-22px'}}
 							>
 								{parseInt(photoPending) + "%"}
 							</p>
-						)}
+						)} */}
 					</div>
 
 					<div className="col">

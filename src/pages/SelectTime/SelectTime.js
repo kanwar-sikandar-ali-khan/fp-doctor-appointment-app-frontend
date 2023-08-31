@@ -8,8 +8,6 @@ import { timestamp } from "../../firebase/config";
 function SelectTime() {
 	const location = useLocation();
 	const { user, doctors } = useAuthContext();
-	console.log("SelectTime=>user",user)
-	console.log("SelectTime=>doctors",doctors)
 	const [date, setdate] = useState("");
 	const [time, setTime] = useState("");
 	const [fieldError, setFieldError] = useState(null);
@@ -86,7 +84,8 @@ function SelectTime() {
 
 		return (
 			<>
-				<div className="con">
+			<div className="px-3">
+			<div className="con">
 					<img src={location.state.doctorData.url} alt="doc" className="time"/>
 					<div className="dr">
 						<p style={{textTransform:"capitalize",fontWeight:'bold'}}>{location.state.doctorData.name }</p>
@@ -151,6 +150,8 @@ function SelectTime() {
 						</div>
 					</div>
 				</div>
+			</div>
+		
 			</>
 		);
 	};

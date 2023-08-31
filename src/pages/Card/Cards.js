@@ -1,7 +1,11 @@
 import "./Cards.css";
 import Card from "./Card";
+import React,{ useEffect } from "react";
+
 
 const Cards = ({ doctors, search }) => {
+
+	
 
 	return (
 		<div className="cards">

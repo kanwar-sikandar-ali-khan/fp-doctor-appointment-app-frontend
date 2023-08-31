@@ -74,9 +74,11 @@ export const AuthContextProvider = ({ children }) => {
 		dispatch({ type: "DOCTOR_DATA_ERROR", payload: error });
 		dispatch({ type: "PATIENT_DATA", payload: patientDocuments });
 		dispatch({ type: "PATIENT_DATA_ERROR", payload: patientError });
-		console.log("first")
 	}, [doctorDocuments, patientDocuments]);
 
+
+
+	///// first time it will run
 	useEffect(() => {
 		const unsub = projectAuth.onAuthStateChanged((user) => {
 			dispatch({ type: "AUTH_IS_READY", payload: user });

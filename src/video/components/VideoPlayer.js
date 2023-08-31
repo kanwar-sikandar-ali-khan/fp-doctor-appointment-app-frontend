@@ -1,8 +1,9 @@
 import "./VideoPlayer.css";
 import { SocketContext } from "../SocketContext";
 import { useContext } from "react";
+import { Scale } from "@mui/icons-material";
 
-const 	VideoPlayer = () => {
+const VideoPlayer = () => {
 	const {
 		docName,
 		callAccepted,
@@ -18,13 +19,15 @@ const 	VideoPlayer = () => {
 			{stream && (
 				<div className="paper">
 					<h2 className="name">{docName || "Name"}</h2>
-					<video playsInline className="video" muted autoPlay ref={myVideo} />
+					<video
+						style={{ transform: 'scaleX(-1)' }} playsInline className="video" muted autoPlay ref={myVideo} />
 				</div>
 			)}
 			{callAccepted && !callEnded && (
 				<div className="paper">
 					<h2 className="name">{call.name || "Name"}</h2>
-					<video playsInline ref={userVideo} autoPlay className="video" />
+					<video
+						style={{ transform: 'scaleX(-1)' }} playsInline ref={userVideo} autoPlay className="video" />
 				</div>
 			)}
 		</div>

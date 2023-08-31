@@ -5,15 +5,14 @@ import { useFirestore } from "../../hooks/useFirestore";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
 const Options = ({ children }) => {
-	const { me, callAccepted, callEnded, leavePatientCall,leaveDoctorCall, callUser } =
+	const { me, callAccepted, callEnded, leavePatientCall, leaveDoctorCall, callUser,call } =
 		useContext(SocketContext);
-		console.log("me in options ", me)
 	const { user, patients, doctors } = useAuthContext();
 	const [patient, setPatient] = useState(null)
 	const [doctor, setDoctor] = useState(null)
 	const { sendCallID } = useFirestore("doctors");
-	
-	useEffect(() => {	
+
+	useEffect(() => {
 		if (user && patients) {
 			patients.forEach((patient) => {
 				if (patient.id === user.uid) {
@@ -32,8 +31,7 @@ const Options = ({ children }) => {
 
 	const joinHandle = (e, doctorDocID, idToCall) => {
 		e.preventDefault()
-		console.log(doctorDocID)
-		console.log(idToCall)
+	
 		sendCallID(doctorDocID, idToCall)
 			.then(() => {
 				alert("Please Wait...")
@@ -45,24 +43,22 @@ const Options = ({ children }) => {
 
 	return (
 		<div className="container">
-			<div className="paper">
-				<div className="root">
-					<div className="grid-container">
-						<div className="padding">
-					{		console.log("patient.callID.doctorDocID",patient)}
+			<div className="paper row">
+				<div className="root col-12 d-flex justify-content-center">
+				<div className="padding">
 							{ patient && patient.callID && patient.callID.doctorDocID &&
 								<button
 									className="btnn"
 									onClick={(e) => joinHandle(e, patient.callID.doctorDocID, me)}
 								>
-									Join
+									Accept invitation
 								</button>}
 						</div>
 						<div className="padding">
-							{doctor && doctor.callID &&<p>Make a call</p>}
+							{doctor && doctor.callID && <p>Patient has Accept invitation,  call him </p>}
 							{callAccepted && !callEnded ? (
 								(patient && patient.docID && <button onClick={(e) => leavePatientCall(e, patient.docID)} className="btnn">
-									Hang Up
+									Hang Up doctor call
 								</button>) ||
 								(doctor && doctor.docID && <button onClick={(e) => leaveDoctorCall(e, doctor.docID)} className="btnn">
 									End Meeting
@@ -73,14 +69,13 @@ const Options = ({ children }) => {
 										className="btnn"
 										onClick={(e) => callUser(e, doctor.callID, doctor.name)}
 									>
-										Call
+										create Call
 									</button>
-								) 
+								)
 							)}
 						</div>
-					</div>
 				</div>
-			{children}
+				{children}
 			</div>
 		</div>
 	);

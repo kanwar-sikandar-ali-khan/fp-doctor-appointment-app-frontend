@@ -16,7 +16,7 @@ const Notifications = () => {
 						{call.name} is calling <span style={{ color: "orange" }}>.....</span>
 					</p>
 					<button onClick={answerCall} className="accept-btn">
-						Accept
+						Accept call
 					</button>
 				</div>
 			)}

@@ -13,10 +13,7 @@
 	justify-content: space-around;
 }
 
-.container .paper .root {
-	display: flex;
-	flex-direction: column;
-}
+
 
 .container .paper .root .grid-container {
 	display: flex;
@@ -26,9 +23,7 @@
 }
 
 .btnn {
-	/* margin-top: 12px; */
-	width: 148px;
-	height: 38px;
+
 	background-color: #006;
 	color: white;
 	padding: 6px;

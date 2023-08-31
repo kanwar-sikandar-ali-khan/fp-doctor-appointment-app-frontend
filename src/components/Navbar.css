@@ -51,8 +51,8 @@ font-size: 100px;
   cursor: pointer;
 }
 .logout:hover { 
-  color: #006;
-  background-color: white;
+  color: white;
+  background-color: #006 !important;
   /* border: 1px solid; */
  border-color: #006;
 }
@@ -100,7 +100,7 @@ font-size: 100px;
 }
 
 .bell {
-  background-color: #006;
+  background-color: #006 !important;
   color: white;
   padding: 9px;
   font-size: 16px;

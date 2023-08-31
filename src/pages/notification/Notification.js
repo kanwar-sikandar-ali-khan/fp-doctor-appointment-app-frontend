@@ -62,7 +62,6 @@ const Notification = () => {
 						setNotifications(doctor.notification);
 						setShowDoctor(true);
 						setDoctorDocID(doctor.docID);
-						console.log("65555555")
 					}
 				});
 			} else {
@@ -106,8 +105,8 @@ const Notification = () => {
 	};
 
 	return (
-		<div className="notification">
-			{notifications &&
+		<div className="notification px-3">
+			{notifications && notifications.length > 0  ?
 				notifications.map((notification) => (
 					<div className="notification-div" key={Math.random()}>
 						<div className="details">
@@ -118,7 +117,7 @@ const Notification = () => {
 							<p>Appointment Date: {toDate(notification.appointmentDate)}</p>
 							<p>Created At: {toDate(notification.createdAt.seconds)}</p>
 						</div>
-						<div className="w">
+						<div className="d-flex justify-content-center">
 							{showDoctor && (
 								<div className="delete">
 									<button className="Reject" onClick={() => removeNotification(notification)}>
@@ -126,7 +125,7 @@ const Notification = () => {
 									</button>
 								</div>
 							)}
-							<div className="dele">
+							<div className="dele mx-2">
 								{showDoctor && (
 									<button
 									className="approve"
@@ -152,13 +151,15 @@ const Notification = () => {
 											)
 										}
 									>
-										CreateCall
+										Send invitation
 									</button>
 								)}
 							</div>
 						</div>
 					</div>
-				))}
+				)):<p className="h3 text-center">EMPTY BOX! </p>}
+
+			
 		</div>
 	);
 };
