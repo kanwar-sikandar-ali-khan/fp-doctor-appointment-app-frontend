@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from "react-router";
 
 const DoctorDetails = ({user, doctors, patients}) => {
 	const location = useLocation();
-	console.log("location",location)
 	const Navigate = useNavigate();
 
 	const handleSubmit = (e) => {
@@ -30,21 +29,21 @@ const DoctorDetails = ({user, doctors, patients}) => {
 
 	return (
 		<div className="DoctorDetails" >
-			<div className="fle">
-				<div className="flex-lef">
-					<div className="lef">
-						<img src={location.state.data.url} alt="profile" className="i" />
+			<div className="row mx-0 px-3">
+				<div className="leftParent col-12 my-3">
+					<div className="lefSide d-flex flex-column align-items-center">
+						<img src={location.state.data.url} alt="profile" className="image" />
 					</div>
-					<div className="rig">
-						<h5>{location.state.data.name}</h5>
-						<p>{location.state.data.email}</p>
-						<p>{location.state.data.category}</p>
-						<p>{location.state.data.experience} years experience</p>
-						<p>{location.state.data.city}</p>
+					<div className="rig py-3 d-flex flex-column align-items-center">
+						<h5  className="text-uppercase">{location.state.data.name}</h5>
+						<p className="text-uppercase ">{location.state.data.email}</p>
+						<p className="text-uppercase">{location.state.data.category}</p>
+						<p className="text-uppercase">{location.state.data.experience} years experience</p>
+						<p className="text-uppercase">{location.state.data.city}</p>
 					</div>
 				</div>
-				<div className="flex-righ">
-					<h5 style={{ textAlign: "center", padding: "20px" }}>
+				<div className="rightParent col-12 my-3">
+					<h5 className="text-uppercase py-4 text-center">
 						online video consultation
 					</h5>
 					<div
@@ -89,7 +88,7 @@ const DoctorDetails = ({user, doctors, patients}) => {
 					</div>
 					<div style={{ textAlign: "center" ,paddingBottom:'10px'}}>
 						<button className="b" onClick={handleSubmit}>
-							book video consultation
+							Book video consultation
 						</button>
 					</div>
 				</div>

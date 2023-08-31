@@ -25,7 +25,6 @@ export const useDoctorCollection = (collection, _orderBy) => {
 				// update states
 				setDoctorDocuments(results);
 				setError(null);
-				console.log("first")
 			},
 			(error) => {
 				console.log(error);

@@ -9,7 +9,6 @@ function Video() {
 
 	const location = useLocation();
 	const [doctorDocID, setDoctorDocID] = useState(null)
-	console.log("doctorDocID",location.state?.callID.doctorDocID)
 
 	useEffect(() => {
 		if (location.state && location.state?.callID.doctorDocID) {

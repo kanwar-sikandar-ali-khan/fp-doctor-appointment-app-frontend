@@ -21,6 +21,7 @@ const SocketContextProvider = ({ children }) => {
 
 	const myVideo = useRef();
 	const userVideo = useRef();
+	console.log("userVideo",userVideo)
 	const connectionRef = useRef();
 
 	useEffect(() => {
@@ -30,10 +31,11 @@ const SocketContextProvider = ({ children }) => {
 					video: true,
 					audio: true,
 				});
+				console.log(stream)
 				if (!stream) {
 					return setCounter((c) => c++);
 				}
-
+				
 				setStream(stream);
 				setTimeout(() => {
 					if (myVideo.current) {
@@ -41,18 +43,19 @@ const SocketContextProvider = ({ children }) => {
 					}
 				}, 2000);
 			} catch (e) {
-				console.log(e);
+				console.log("error",e);
 			}
 		};
 		getUserMedia();
 
 		socket.on("me", (id) => {
 			setMe(id)
-			console.log("useEffect sockcket me")
 		});
+
+		//// ye patient pr chale ga
 		socket.on("callUser", ({ from, name: callerName, signal }) => {
+			console.log("useEffect 1")
 			setCall({ isReceivingCall: true, from, name: callerName, signal });
-			console.log("useEffect sockcket first")
 		});
 
 
@@ -66,10 +69,12 @@ const SocketContextProvider = ({ children }) => {
 		const peer = new Peer({ initiator: false, trickle: false, stream });
 
 		peer.on("signal", (data) => {
+			console.log("answerCall 1")
 			socket.emit("answerCall", { signal: data, to: call.from });
 		});
 
-		peer.on("stream", (currentStream) => {
+		peer.on("stream", (currentStream) => {	
+			console.log("answerCall 2")
 			userVideo.current.srcObject = currentStream;
 		});
 
@@ -78,26 +83,29 @@ const SocketContextProvider = ({ children }) => {
 		connectionRef.current = peer;
 	};
 
-	const callUser = (e, id, doctorName) => {
+	const callUser = (e, id, doctorName) => {   /// its for doctor
 		e.preventDefault();
 		const peer = new Peer({ initiator: true, trickle: false, stream });
 		setDocName(doctorName)
 
 		peer.on("signal", (data) => {
-			console.log("callUser,data", data, "me=>", me, "id=>", id)
+			console.log("callUser 1")
 			socket.emit("callUser", {
-				userToCall: id,
+				userToCall: id, // call id
 				signalData: data,
-				from: me,
+				from: me, // call id 
 				name: doctorName,
 			});
-		});  /// yahn calluser event chala
+		});  
 
 		peer.on("stream", (currentStream) => {
 			userVideo.current.srcObject = currentStream;
+			console.log("callUser 2")
 		});
 
 		socket.on("callAccepted", (signal) => {
+			console.log("callUser 3")
+
 			setCallAccepted(true);
 
 			peer.signal(signal);

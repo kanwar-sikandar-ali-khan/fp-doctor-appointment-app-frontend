@@ -1,12 +1,8 @@
 .notification {
-	min-height: 92vh;
-	background-color: lavender;
 	padding-top: 50px;
 	padding-bottom: 50px;
 }
 .notification-div {
-	display: flex;
-	max-width: 600px;
 	margin: 0px auto;
 	justify-content: center;
 	background-color: whitesmoke;

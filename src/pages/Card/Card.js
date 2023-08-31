@@ -5,9 +5,9 @@ const Card = ({ doctor }) => {
     const Navigate = useNavigate();
 
 	return (
-		<div key={doctor.id} className="card">
+		<div key={doctor.id} className="card py-3">
 			<img src={doctor.url} alt="DocImage" className="DocImage"></img>
-			<p className="doctor-details">{doctor.name}</p>
+			<p className="doctor-details mt-5">{doctor.name}</p>
 			<p className="doctor-details">{doctor.category}</p>
 			<p className="doctor-details">{doctor.experience} years experience</p>
 			<div className="doctor-details view">

@@ -8,7 +8,7 @@ import { storageRef } from "../../firebase/config";
 import { Link } from "react-router-dom";
 
 export default function PatSignUp() {
-  const [email, setEmail] = useState("");
+	const [email, setEmail] = useState("");
 	const [displayName, setdisplayName] = useState("");
 	const [photo, setPhoto] = useState("");
 	const [password, setPassword] = useState("");
@@ -17,57 +17,58 @@ export default function PatSignUp() {
 	const { addDocument } = useFirestore("patients");
 	const [photoPending, setPhotoPending] = useState(false);
 	const role = "patient"
-  
-  useEffect(() => {
+
+	useEffect(() => {
 		if (url) {
 			signup(addDocument, email, password, displayName, url, role);
 		}
-  }, [url]);
-	
+	}, [url]);
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-	// var uploadTask = storageRef.child(`images/${photo.name}`).put(photo)
+		var uploadTask = storageRef.child(`doctorappStorage/${photo.name}`).put(photo)
 
-	// Register three observers:
-	// 1. 'state_changed' observer, called any time the state changes
-	// 2. Error observer, called on failure
-	// 3. Completion observer, called on successful completion
-	// uploadTask.on(
-	// 	"state_changed",
-	// 	(snapshot) => {
-	// 		Observe state change events such as progress, pause, and resume
-	// 		Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-	// 		var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-	// 		setPhotoPending(progress);
-	// 	},
-	// 	(error) => {
-	// 		console.log(error.message)
-	// 	},
-	// 	() => {
-	// 		Handle successful uploads on complete
-	// 		For instance, get the download URL: https://firebasestorage.googleapis.com/...
-	// 		uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-	// 			setUrl(downloadURL)
-	// 		});
-	// 	}
-	// );
-	
-	setUrl("https://img.freepik.com/premium-vector/avatar-portrait-young-caucasian-boy-man-round-frame-vector-cartoon-flat-illustration_551425-19.jpg?w=2000");
+		// Register three observers:
+		// 1. 'state_changed' observer, called any time the state changes
+		// 2. Error observer, called on failure
+		// 3. Completion observer, called on successful completion
+		uploadTask.on(
+			"state_changed",
+			(snapshot) => {
+				// Observe state change events such as progress, pause, and resume
+				// Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+				var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+				setPhotoPending(progress);
+			},
+			(error) => {
+				console.log(error.message)
+			},
+			() => {
+				// Handle successful uploads on complete
+				// For instance, get the download URL: https://firebasestorage.googleapis.com/...
+				uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+					// console.log("downloadURL",downloadURL)
+					setUrl(downloadURL)
+				});
+			}
+		);
+
+		// setUrl("https://img.freepik.com/premium-vector/avatar-portrait-young-caucasian-boy-man-round-frame-vector-cartoon-flat-illustration_551425-19.jpg?w=2000");
 	};
 
 	return (
-		<div className="bg" style={{ minHeight: '91.5vh'}}>
+		<div className="bg" style={{ minHeight: '91.5vh' }}>
 			<div className="containe">
 				<form onSubmit={handleSubmit} className="signup-form">
-					<h3 className="h1">SignUP <span style={{color:'orange'}}>Form</span></h3>
+					<h3 className="h1">SignUP <span style={{ color: 'orange' }}>Form</span></h3>
 
 					<div className="col-25">
 						<label>Email</label>
 					</div>
 					<div>
 						<input type="email" onChange={(e) => setEmail(e.target.value)}
-				value={email} placeholder="Email" id="email" />
+							value={email} placeholder="Email" id="email" />
 					</div>
 
 					<div className="col-25">
@@ -75,16 +76,16 @@ export default function PatSignUp() {
 					</div>
 					<div>
 						<input onChange={(e) => setPassword(e.target.value)}
-				value={password} type="password" placeholder="Password" id="password" />
+							value={password} type="password" placeholder="Password" id="password" />
 					</div>
 
 					<div className="col-25">
 						<label>DisplayName</label>
 					</div>
 					<div>
-            <input
-              onChange={(e) => setdisplayName(e.target.value)}
-              value={displayName}
+						<input
+							onChange={(e) => setdisplayName(e.target.value)}
+							value={displayName}
 							type="text"
 							id="fname"
 							name="firstname"
@@ -100,12 +101,13 @@ export default function PatSignUp() {
 							type="file"
 							id="file"
 							name="firstname"
-              placeholder="Picture"
-              onChange={(e) => setPhoto(e.target.files[0])}
+							placeholder="Picture"
+							onChange={(e) => setPhoto(e.target.files[0])}
+							className="btn btn-dark w-100"
 						/>
-						{photoPending && <p className="percentage" style={{color:'red',marginLeft:'230px',marginTop:'-22px'}}>{parseInt(photoPending) + "%"}</p>}
+						{/* {photoPending && <p className="percentage" style={{ color: 'red', marginLeft: '230px', marginTop: '-22px' }}>{parseInt(photoPending) + "%"}</p>} */}
 					</div>
-					
+
 					<div className="col">
 						{!isPending && (
 							<button type="submit" className="bt">
@@ -117,7 +119,7 @@ export default function PatSignUp() {
 								Loading
 							</button>
 						)}
-						{error && <p style={{ color: 'red', width:"240px"}}>{error}</p>}
+						{error && <p style={{ color: 'red', width: "240px" }}>{error}</p>}
 					</div>
 					<div>
 						<span style={{ color: "#006" }}>

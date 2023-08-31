@@ -15,13 +15,12 @@ import Notification from "./pages/notification/Notification";
 import SelectTime from "./pages/SelectTime/SelectTime";
 import { useEffect, useState } from "react";
 import Video from "./video/Video";
+import { useHookTest } from "./hooks/useHookTest";
 
 function App() {
 	const [doctor, setDoctor] = useState(null)
 	const [patient, setPatient] = useState(null)
 	const { authIsReady, user, doctors, patients } = useAuthContext();
-	console.log("patients",patients)
-
 	useEffect(() => {	
 		if (user && doctors) {
 			doctors.forEach((doctor) => {

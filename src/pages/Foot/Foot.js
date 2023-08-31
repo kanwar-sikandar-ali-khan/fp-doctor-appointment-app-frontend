@@ -3,10 +3,10 @@ import Twitter from "../../Images/twitter.png";
 const Foot = () => {
 	return (
 		<div className="foot">
-			<div className="foot-center">
+			<div className="foot-center px-3">
 				<div>
 					<p style={{ lineHeight: "35px" }}>
-						Copyright @ 2015 - 2023 MediConnect Services, a subsidiary of
+						Copyright @ 2023 - 2030 MediConnect Services, a subsidiary of
 						MyDoctor Inc - All Rights Reserved <br></br>
 						Reproduction of material from any medcure.com pages without
 						permission is strictly prohibited.
@@ -15,7 +15,7 @@ const Foot = () => {
 				<div>
 					<div>
 						<p>connect with us </p>
-						<div className="space">
+						<div className="space my-3 d-flex justify-content-around">
 							<img src={Twitter} alt="twitter" style={{ width: "40px" }} />
 							<img
 								src="https://www.transparentpng.com/thumb/facebook-logo/facebook-icon-transparent-background-20.png"

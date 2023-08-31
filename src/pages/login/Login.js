@@ -19,7 +19,7 @@ export default function Login() {
 			<div className="contain">
 				<form className="login-form" onSubmit={handleSubmit}>
 					<h3 className="h1">
-						Login <span style={{ color: "orange" }}>Form</span>
+						LOGIN <span style={{ color: "orange" }}>FORM</span>
 					</h3>
 
 					<div className="col-25">
@@ -68,9 +68,8 @@ export default function Login() {
 						)}
 					</div>
 
-					<div>
+					<div	className="btn btn-dark w-100" >
 						<span style={{ color: "#006" }}>
-							Not registered?<br></br>
 							<Link
 								to="/patient-signup"
 								style={{ textDecoration: "none", color: "orange" }}
@@ -79,7 +78,7 @@ export default function Login() {
 							</Link>
 						</span>
 					</div>
-					<div>
+					<div 	className="btn btn-dark w-100 mt-3">
 						<span style={{ color: "#006" }}>
 							<Link
 								to="/doctor-signup"
