@@ -4,8 +4,8 @@ import Peer from "simple-peer";
 import { useFirestore } from "../hooks/useFirestore";
 const SocketContext = createContext();
 
-const socket = io("http://localhost:5000");
-// const socket = io("http://localhost:3000");
+// const socket = io("http://localhost:5000");
+const socket = io("aeb05e0da43604e06a419049aa2da6a0-842097627.ap-south-1.elb.amazonaws.com");
 // const socket = io('web-production-dcf0.up.railway.app');
 
 const SocketContextProvider = ({ children }) => {
