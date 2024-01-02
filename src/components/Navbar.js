@@ -13,21 +13,28 @@ import Button from "@mui/material/Button";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useLogout } from "../hooks/useLogout";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router";
+import { useNavigate,useLocation } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faBell as faFaBell } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { faBars as faBarss } from "@fortawesome/free-solid-svg-icons";
 import Stack from "@mui/material/Stack";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 library.add(faFaBell, faBarss);
 
 function Navbar({ patient }) {
 	const { user, doctors, patients } = useAuthContext();
 	const { logout } = useLogout();
 	const Navigate = useNavigate();
+	const location = useLocation();
 	const [showNotifications, setShowNotifications] = useState(null);
 	const [anchorElNav, setAnchorElNav] = useState(null);
+	const [open, setOpen] = useState(false);
 
 	useEffect(() => {
 		if (user) {
@@ -61,245 +68,266 @@ function Navbar({ patient }) {
 		window.location.reload();
 	};
 
+	const handleClose = () => {
+		setOpen(false);
+	};
+	//   patient && patient.callID && patient.callID.room
+
+	useEffect(() => {
+		// console.log("patient && patient.callID && patient.callID.room", patient && patient.callID && patient.callID.room)
+		if (location.pathname == "/" && (patient && patient.callID && patient.callID.room)) {
+			setOpen(true)
+		}
+
+	}, [patient])
+
+
 	return (
-		<AppBar position="sticky" sx={{ background: "white" }}>
-			<Container maxWidth="xl">
-				<Toolbar disableGutters>
-					<Typography
-						variant="h6"
-						noWrap
-						component="a"
-						href="/"
-						sx={{
-							mr: 2,
-							display: { xs: "none", md: "flex" },
-							fontFamily: "monospace",
-							fontWeight: 700,
-							letterSpacing: ".3rem",
-							color: "#006",
-							textDecoration: "none",
-						}}
-					>
-						<Link to="/" style={{ color: "#006", textDecoration: "none" }}>
-							Med<span style={{ color: "orange" }}>Cure</span>
-						</Link>
-					</Typography>
+		<>
+			<Dialog
+				open={open}
+				onClose={handleClose}
+				aria-labelledby="alert-dialog-title"
+				aria-describedby="alert-dialog-description"
+			>
+				<DialogTitle id="alert-dialog-title">
+					{"Your Doctor is calling you"}
+				</DialogTitle>
+				<DialogContent>
+					<DialogContentText id="alert-dialog-description">
+						Let Google help apps determine location. This means sending anonymous
+						location data to Google, even when no apps are running.
+					</DialogContentText>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={handleClose}>Disagree</Button>
+					<Button onClick={handleJoin} autoFocus>
+						Agree
+					</Button>
+				</DialogActions>
+			</Dialog>
+			<AppBar position="sticky" sx={{ background: "white" }}>
+				<Container maxWidth="xl">
+					<Toolbar disableGutters>
+						<Typography
+							variant="h6"
+							noWrap
+							component="a"
+							href="/"
+							sx={{
+								mr: 2,
+								display: { xs: "none", md: "flex" },
+								fontFamily: "monospace",
+								fontWeight: 700,
+								letterSpacing: ".3rem",
+								color: "#006",
+								textDecoration: "none",
+							}}
+						>
+							<Link to="/" style={{ color: "#006", textDecoration: "none" }}>
+								Med<span style={{ color: "orange" }}>Cure</span>
+							</Link>
+						</Typography>
 
-					<Typography
-						variant="h5"
-						noWrap
-						component="a"
-						href=""
-						sx={{
-							mr: 2,
-							display: { xs: "flex", md: "none" },
-							flexGrow: 1,
-							fontFamily: "monospace",
-							fontWeight: 700,
-							letterSpacing: ".3rem",
-							color: "#006",
-							textDecoration: "none",
-						}}
-					>
-						<Link to="/" style={{ color: "#006", textDecoration: "none" }}>
-							Med<span style={{ color: "orange" }}>Cure</span>
-						</Link>
-					</Typography>
+						<Typography
+							variant="h5"
+							noWrap
+							component="a"
+							href=""
+							sx={{
+								mr: 2,
+								display: { xs: "flex", md: "none" },
+								flexGrow: 1,
+								fontFamily: "monospace",
+								fontWeight: 700,
+								letterSpacing: ".3rem",
+								color: "#006",
+								textDecoration: "none",
+							}}
+						>
+							<Link to="/" style={{ color: "#006", textDecoration: "none" }}>
+								Med<span style={{ color: "orange" }}>Cure</span>
+							</Link>
+						</Typography>
 
-					<Box
-						sx={{
-							flexGrow: 1,
-							display: { xs: "none", md: "flex" },
-							justifyContent: "flex-end",
-						}}
-					>
-						{!user && (
-							<>
-								<li>
-									<div className="dropdown">
-										<button className="dropbtn">Login/SignUp</button>
-										<div className="dropdown-content">
-											<Link className="d" to="/doctor-signup">
-												Doctor
-											</Link>
+						<Box
+							sx={{
+								flexGrow: 1,
+								display: { xs: "none", md: "flex" },
+								justifyContent: "flex-end",
+							}}
+						>
+							{!user && (
+								<>
+									<li>
+										<div className="dropdown">
+											<button className="dropbtn">Login/SignUp</button>
+											<div className="dropdown-content">
+												<Link className="d" to="/doctor-signup">
+													Doctor
+												</Link>
 
-											<Link className="d" to="/patient-signup">
-												Patient
-											</Link>
+												<Link className="d" to="/patient-signup">
+													Patient
+												</Link>
+											</div>
 										</div>
-									</div>
-								</li>
-							</>
-						)}
+									</li>
+								</>
+							)}
 
-						{user && (
-							<>
-								<Typography
-									variant="h5"
-									component="h2"
-									sx={{ color: "#006", marginRight: "20px", marginTop: "17px" }}
-								>
-									Hello,
-									<span
-										style={{ color: "orange" }}
-									>{` ${user.displayName}`}</span>
-								</Typography>
-								<Stack sx={{ marginRight: "20px", marginTop: "13px" }}>
-									<Avatar src={user.photoURL} alt="profile" />
-								</Stack>
-								<Button
-									className="logout"
-									onClick={logout}
-									sx={{
-										my: 2,
-										color: "white",
-										backgroundColor: "#006",
-										display: "block",
-										marginRight: "20px",
-										border: "1px solid #006",
-										borderRadius: "10px",
-										"&:hover": {
-											backgroundColor: "white",
-											color: "#006",
-											border: "1px solid #006",
-										},
-									}}
-								>
-									logout
-								</Button>
-								{patient && patient.callID && patient.callID.room && (
+							{user && (
+								<>
+									<Typography
+										variant="h5"
+										component="h2"
+										sx={{ color: "#006", marginRight: "20px", marginTop: "17px" }}
+									>
+										Hello,
+										<span
+											style={{ color: "orange" }}
+										>{` ${user.displayName}`}</span>
+									</Typography>
+									<Stack sx={{ marginRight: "20px", marginTop: "13px" }}>
+										<Avatar src={user.photoURL} alt="profile" />
+									</Stack>
 									<Button
-										className="call"
-										onClick={handleJoin}
+										className="logout"
+										onClick={logout}
 										sx={{
 											my: 2,
 											color: "white",
 											backgroundColor: "#006",
 											display: "block",
 											marginRight: "20px",
-											borderRadius: "10px",
 											border: "1px solid #006",
+											borderRadius: "10px",
+											"&:hover": {
+												backgroundColor: "white",
+												color: "#006",
+												border: "1px solid #006",
+											},
 										}}
 									>
-										Calling ...
+										logout
 									</Button>
-								)}
-								<Button
-									className="bell"
-									onClick={() => Navigate("/notification")}
-									sx={{
-										my: 2,
-										color: "white",
-										background: "#006",
-										display: "block",
-										borderRadius: "10px",
-										"&:hover": {
-											backgroundColor: "white",
-											color: "#006",
-											border: "1px solid #006",
-										},
-									}}
-								>
-									<Badge
-										badgeContent={showNotifications && showNotifications.length}
-										color="primary"
-									>
-										<FontAwesomeIcon icon={faFaBell} className="bell-icon" />
-									</Badge>
-								</Button>
-							</>
-						)}
-					</Box>
-
-					<Box sx={{ flexGrow: -2, display: { xs: "flex", md: "none" } }}>
-						<IconButton
-							size="large"
-							aria-label="account of current user"
-							aria-controls="menu-appbar"
-							aria-haspopup="true"
-							onClick={handleOpenNavMenu}
-							sx={{ color: "#006" }}
-						>
-							<MenuIcon />
-						</IconButton>
-						<Menu
-							id="menu-appbar"
-							anchorEl={anchorElNav}
-							anchorOrigin={{
-								vertical: "bottom",
-								horizontal: "left",
-							}}
-							keepMounted
-							transformOrigin={{
-								vertical: "top",
-								horizontal: "left",
-							}}
-							open={Boolean(anchorElNav)}
-							onClose={handleCloseNavMenu}
-							sx={{
-								display: { xs: "block", md: "none" },
-							}}
-						>
-							<Box
-								style={{
-									paddingLeft: "10px",
-									paddingRight: "10px",
-									paddingBottom: "70px",
-								}}
-							>
-								{!user && (
-									<>
-										<div className="dropdown">
-											<button className="dropbtn">Login/SignUp</button>
-											<div
-												className="dropdown-content"
-												onClick={handleCloseNavMenu}
-											>
-												<Link className="d" to="/doctor-signup">
-													Doctor
-												</Link>
-												<Link className="d" to="/patient-signup">
-													Patient
-												</Link>
-											</div>
-										</div>
-									</>
-								)}
-
-								{user && (
-									<>
-										<Typography
-											variant="h5"
-											component="h2"
-											sx={{ color: "#006", padding: "10px", marginTop: "13px" }}
-										>
-											Hello,
-											<span
-												style={{ color: "orange" }}
-											>{`${user.displayName}`}</span>
-										</Typography>
-										<Stack sx={{ marginTop: "13px", marginLeft: "60px" }}>
-											<Avatar src={user.photoURL} alt="profile" />
-										</Stack>
+									{patient && patient.callID && patient.callID.room && (
 										<Button
-											className="logout"
-											onClick={logout}
+											className="call"
+											onClick={handleJoin}
 											sx={{
 												my: 2,
 												color: "white",
 												backgroundColor: "#006",
 												display: "block",
-												width: "100px",
+												marginRight: "20px",
 												borderRadius: "10px",
-												marginLeft: "40px",
+												border: "1px solid #006",
 											}}
 										>
-											logout
+											Calling ...
 										</Button>
-										{patient && patient.callID && patient.callID.room && (
+									)}
+									<Button
+										className="bell"
+										onClick={() => Navigate("/notification")}
+										sx={{
+											my: 2,
+											color: "white",
+											background: "#006",
+											display: "block",
+											borderRadius: "10px",
+											"&:hover": {
+												backgroundColor: "white",
+												color: "#006",
+												border: "1px solid #006",
+											},
+										}}
+									>
+										<Badge
+											badgeContent={showNotifications && showNotifications.length}
+											color="primary"
+										>
+											<FontAwesomeIcon icon={faFaBell} className="bell-icon" />
+										</Badge>
+									</Button>
+								</>
+							)}
+						</Box>
+
+						<Box sx={{ flexGrow: -2, display: { xs: "flex", md: "none" } }}>
+							<IconButton
+								size="large"
+								aria-label="account of current user"
+								aria-controls="menu-appbar"
+								aria-haspopup="true"
+								onClick={handleOpenNavMenu}
+								sx={{ color: "#006" }}
+							>
+								<MenuIcon />
+							</IconButton>
+							<Menu
+								id="menu-appbar"
+								anchorEl={anchorElNav}
+								anchorOrigin={{
+									vertical: "bottom",
+									horizontal: "left",
+								}}
+								keepMounted
+								transformOrigin={{
+									vertical: "top",
+									horizontal: "left",
+								}}
+								open={Boolean(anchorElNav)}
+								onClose={handleCloseNavMenu}
+								sx={{
+									display: { xs: "block", md: "none" },
+								}}
+							>
+								<Box
+									style={{
+										paddingLeft: "10px",
+										paddingRight: "10px",
+										paddingBottom: "70px",
+									}}
+								>
+									{!user && (
+										<>
+											<div className="dropdown">
+												<button className="dropbtn">Login/SignUp</button>
+												<div
+													className="dropdown-content"
+													onClick={handleCloseNavMenu}
+												>
+													<Link className="d" to="/doctor-signup">
+														Doctor
+													</Link>
+													<Link className="d" to="/patient-signup">
+														Patient
+													</Link>
+												</div>
+											</div>
+										</>
+									)}
+
+									{user && (
+										<>
+											<Typography
+												variant="h5"
+												component="h2"
+												sx={{ color: "#006", padding: "10px", marginTop: "13px" }}
+											>
+												Hello,
+												<span
+													style={{ color: "orange" }}
+												>{`${user.displayName}`}</span>
+											</Typography>
+											<Stack sx={{ marginTop: "13px", marginLeft: "60px" }}>
+												<Avatar src={user.photoURL} alt="profile" />
+											</Stack>
 											<Button
-												className="call"
-												onClick={handleJoin}
+												className="logout"
+												onClick={logout}
 												sx={{
 													my: 2,
 													color: "white",
@@ -310,42 +338,60 @@ function Navbar({ patient }) {
 													marginLeft: "40px",
 												}}
 											>
-												Calling ...
+												logout
 											</Button>
-										)}
-										<Button
-											className="bell"
-											onClick={() => Navigate("/notification")}
-											sx={{
-												my: 2,
-												color: "white",
-												background: "#006",
-												display: "block",
-												borderRadius: "10px",
-												marginLeft: "40px",
-												width: "100px",
-											}}
-										>
-											<Badge
-												badgeContent={
-													showNotifications && showNotifications.length
-												}
-												color="primary"
+											{patient && patient.callID && patient.callID.room && (
+												<Button
+													className="call"
+													onClick={handleJoin}
+													sx={{
+														my: 2,
+														color: "white",
+														backgroundColor: "#006",
+														display: "block",
+														width: "100px",
+														borderRadius: "10px",
+														marginLeft: "40px",
+													}}
+												>
+													Calling ...
+												</Button>
+											)}
+											<Button
+												className="bell"
+												onClick={() => Navigate("/notification")}
+												sx={{
+													my: 2,
+													color: "white",
+													background: "#006",
+													display: "block",
+													borderRadius: "10px",
+													marginLeft: "40px",
+													width: "100px",
+												}}
 											>
-												<FontAwesomeIcon
-													icon={faFaBell}
-													className="bell-icon"
-												/>
-											</Badge>
-										</Button>
-									</>
-								)}
-							</Box>
-						</Menu>
-					</Box>
-				</Toolbar>
-			</Container>
-		</AppBar>
+												<Badge
+													badgeContent={
+														showNotifications && showNotifications.length
+													}
+													color="primary"
+												>
+													<FontAwesomeIcon
+														icon={faFaBell}
+														className="bell-icon"
+													/>
+												</Badge>
+											</Button>
+										</>
+									)}
+								</Box>
+							</Menu>
+						</Box>
+					</Toolbar>
+				</Container>
+			</AppBar>
+		</>
+
 	);
 }
 export default Navbar;
