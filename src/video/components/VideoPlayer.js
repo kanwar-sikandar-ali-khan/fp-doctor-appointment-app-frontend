@@ -3,7 +3,7 @@ import { SocketContext } from "../SocketContext";
 import { useContext } from "react";
 import { Scale } from "@mui/icons-material";
 
-const VideoPlayer = () => {
+const VideoPlayer = ({doctor,patient}) => {
 	const {
 		docName,
 		callAccepted,
@@ -13,6 +13,7 @@ const VideoPlayer = () => {
 		stream,
 		call,
 	} = useContext(SocketContext);
+	console.log("userVideo",userVideo?.current)
 
 	return (
 		<div className="grid-containe">
@@ -30,6 +31,9 @@ const VideoPlayer = () => {
 						style={{ transform: 'scaleX(-1)' }} playsInline ref={userVideo} autoPlay className="video" />
 				</div>
 			)}
+			{doctor?.callID == "" && userVideo.current == undefined && "wait....."}
+			{/* call.isReceivingCall && !callAccepted */}
+			{patient && !call.isReceivingCall && userVideo.current == undefined && "wait....."}
 		</div>
 	);
 };

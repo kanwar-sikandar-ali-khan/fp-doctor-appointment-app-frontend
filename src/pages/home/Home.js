@@ -11,7 +11,7 @@ import Headline from "../HeadLine/Headline";
 import Footer from "../Footer/Footer";
 import Foot from "../Foot/Foot";
 
-const Home = () => {
+const Home = ({patient}) => {
 	const { doctors, doctor_error } = useAuthContext();
 	const [search, setSearch] = useState("");
 
@@ -45,7 +45,7 @@ const Home = () => {
 			{doctors && doctors.length !== 0 && (
 				<section>
 					{doctor_error && <p>{doctor_error}</p>}
-					{doctors && <Cards doctors={doctors} search={search} />}
+					{doctors && <Cards doctors={doctors} search={search} patient={patient} />}
 				</section>
 			)}
 			<section>

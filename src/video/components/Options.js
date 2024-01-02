@@ -11,6 +11,7 @@ const Options = ({ children }) => {
 	const [patient, setPatient] = useState(null)
 	const [doctor, setDoctor] = useState(null)
 	const { sendCallID } = useFirestore("doctors");
+	const [messsage, setmesssage] = useState(false)
 
 	useEffect(() => {
 		if (user && patients) {
@@ -29,8 +30,8 @@ const Options = ({ children }) => {
 		}
 	}, [user, patients, doctors])
 
-	const joinHandle = (e, doctorDocID, idToCall) => {
-		e.preventDefault()
+	const joinHandle = (doctorDocID, idToCall) => {
+		// e.preventDefault()
 	
 		sendCallID(doctorDocID, idToCall)
 			.then(() => {
@@ -41,11 +42,24 @@ const Options = ({ children }) => {
 			});
 	};
 
+
+	useEffect(() => {
+	 if(patient && patient.callID && patient.callID.doctorDocID){
+		joinHandle(patient.callID.doctorDocID, me)
+	 }
+	}, [patient])
+	
+
+	const handleCallPatient = (e, doctor)=>{
+		callUser(e, doctor.callID, doctor.name)
+		setmesssage(true)
+	}
+
 	return (
 		<div className="container">
 			<div className="paper row">
 				<div className="root col-12 d-flex justify-content-center">
-				<div className="padding">
+				{/* <div className="padding">
 							{ patient && patient.callID && patient.callID.doctorDocID &&
 								<button
 									className="btnn"
@@ -53,7 +67,7 @@ const Options = ({ children }) => {
 								>
 									Accept invitation
 								</button>}
-						</div>
+						</div> */}
 						<div className="padding">
 							{doctor && doctor.callID && <p>Patient has Accept invitation,  call him </p>}
 							{callAccepted && !callEnded ? (
@@ -67,12 +81,15 @@ const Options = ({ children }) => {
 								(doctor && doctor.callID &&
 									<button
 										className="btnn"
-										onClick={(e) => callUser(e, doctor.callID, doctor.name)}
+										// onClick={(e) => callUser(e, doctor.callID, doctor.name)}
+										onClick={(e)=>handleCallPatient(e, doctor)}
 									>
-										create Call
+										create Call and share video
 									</button>
 								)
 							)}
+
+							{messsage && <p className="mt-2 text-center">call is going.......</p>}
 						</div>
 				</div>
 				{children}

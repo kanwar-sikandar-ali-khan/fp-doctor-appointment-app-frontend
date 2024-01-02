@@ -38,6 +38,8 @@ function App() {
 		}
 	}, [user, patients, doctors])
 
+
+
 	return (
 		<div className="App">
 			{authIsReady && (
@@ -46,7 +48,7 @@ function App() {
 					<Routes>
 						
 						{/* Home */}
-						<Route path="/" element={<Home />} />
+						<Route path="/" element={<Home patient={patient}/>} />
 						
 						{/* Login */}
 						{user && <Route path="/login" element={<Navigate to={"/"} />} />} 
@@ -61,7 +63,7 @@ function App() {
 						{!user && <Route path="/patient-signup" element={<PatSignUp/>} />}
 
 						{/* Doctors */}
-						<Route path="/doctors" element={<Cards doctors={doctors} />} />
+						<Route path="/doctors" element={<Cards doctors={doctors} patient={patient} />} />
 
 						{/* Notification */}
 						{user && <Route path="/notification" element={<Notification doctor={doctor} user={user} />} />}

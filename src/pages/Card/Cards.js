@@ -1,11 +1,9 @@
 import "./Cards.css";
 import Card from "./Card";
-import React,{ useEffect } from "react";
+import React,{ useEffect,useState } from "react";
 
 
-const Cards = ({ doctors, search }) => {
-
-	
+const Cards = ({ doctors, search,patient }) => {	
 
 	return (
 		<div className="cards">
@@ -18,14 +16,15 @@ const Cards = ({ doctors, search }) => {
 							);
 						})
 						.map((card, index) => {
-							return <Card key={index} doctor={card} />;
+							return <Card key={index} doctor={card} patient={patient} />;
 						})}
 						{doctors && !search &&
 							doctors.map((doctor, index) => (
-								<Card doctor={doctor} key={index } />
+								<Card doctor={doctor} key={index } patient={patient} />
 					))}
 		</div>
 	);
 };
 
 export default Cards;
+

@@ -1,7 +1,7 @@
 import { SocketContext } from "../SocketContext";
 import { useContext } from "react";
 
-const Notifications = () => {
+const Notifications = ({patient}) => {
 	const { answerCall, call, callAccepted } = useContext(SocketContext);
 
 	return (
@@ -16,10 +16,12 @@ const Notifications = () => {
 						{call.name} is calling <span style={{ color: "orange" }}>.....</span>
 					</p>
 					<button onClick={answerCall} className="accept-btn">
-						Accept call
+						Accept call and share video
 					</button>
 				</div>
 			)}
+
+			{/* {call.isReceivingCall && !callAccepted && "wait"} */}
 		</>
 	);
 };
