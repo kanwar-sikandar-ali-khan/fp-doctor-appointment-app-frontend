@@ -7,8 +7,8 @@
   padding-bottom: 10px;
 }
 .card {
-  background-color: white;
-  color: #006;
+  background-color: rgb(0, 0, 102) !important;
+  color: #fff !important;
   height: 250px;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
@@ -24,7 +24,7 @@
 
 .card .doctor-details {
   padding-top: 3px;
-  font-size: 20px;
+  font-size: 14px !important;
   text-transform: capitalize;
   text-align: center;
   line-height: 30px;
@@ -55,6 +55,7 @@
   position: absolute;
   left: 88px;
   top: -24px;
+  background: #fff !important;
 }
 .card:hover .DocImage {
   border: 4px solid orange;
