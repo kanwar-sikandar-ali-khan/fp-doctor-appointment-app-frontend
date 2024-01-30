@@ -10,6 +10,8 @@ import Reviews from "../Reviews/Reviews";
 import Headline from "../HeadLine/Headline";
 import Footer from "../Footer/Footer";
 import Foot from "../Foot/Foot";
+import Button from '@mui/material/Button';
+
 
 const Home = ({patient}) => {
 	const { doctors, doctor_error } = useAuthContext();
@@ -21,6 +23,15 @@ const Home = ({patient}) => {
 
 	return (
 		<>
+
+		<div className="d-flex my-3 urgencyParent justify-content-center align-items-center">
+
+
+			<p className="mx-3 my-0 ">Get Urgent consultation</p>
+
+		<Button onClick={()=>window.location = 'https://medicofyp.netlify.app/'} variant="contained">Go</Button>
+
+		</div>
 			<section className="home">
 				<div className="container">
 					<div className="centered">
@@ -40,6 +51,8 @@ const Home = ({patient}) => {
 							<button className="a">Search</button>
 						</form>
 					</div>
+
+					
 				</div>
 			</section>
 			{doctors && doctors.length !== 0 && (

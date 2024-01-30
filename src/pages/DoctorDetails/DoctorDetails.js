@@ -43,7 +43,7 @@ const DoctorDetails = ({user, doctors, patients}) => {
 					</div>
 				</div>
 				<div className="rightParent col-12 my-3">
-					<h5 className="text-uppercase py-4 text-center">
+					{/* <h5 className="text-uppercase py-4 text-center">
 						online video consultation
 					</h5>
 					<div
@@ -57,7 +57,7 @@ const DoctorDetails = ({user, doctors, patients}) => {
 					>
 						<p>Fee</p>
 						<p>Rs:500</p>
-					</div>
+					</div> */}
 					<div
 						style={{
 							display: "flex",

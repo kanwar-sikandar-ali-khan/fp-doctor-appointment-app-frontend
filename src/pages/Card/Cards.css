@@ -64,7 +64,7 @@
   .DocImage {
     left: 130px;
   }
-}
+} 
 
 @media (max-width: 400px) {
   .DocImage {
@@ -79,8 +79,8 @@
 }
 
 .view-more {
-  background-color: #006;
-  color: white;
+  background-color: white;
+  color: #006;
   font-size: 16px;
   padding: 10px;
   border-radius: 10px;
