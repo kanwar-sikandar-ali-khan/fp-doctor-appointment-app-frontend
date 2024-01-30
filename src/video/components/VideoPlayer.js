@@ -19,14 +19,14 @@ const VideoPlayer = ({doctor,patient}) => {
 		<div className="grid-containe">
 			{stream && (
 				<div className="paper">
-					<h2 className="name">{docName || "Name"}</h2>
+					<h2 className="name">{docName || "You"}</h2>
 					<video
 						style={{ transform: 'scaleX(-1)' }} playsInline className="video" muted autoPlay ref={myVideo} />
 				</div>
 			)}
 			{callAccepted && !callEnded && (
 				<div className="paper">
-					<h2 className="name">{call.name || "Name"}</h2>
+					<h2 className="name">{call.name || "Caller"}</h2>
 					<video
 						style={{ transform: 'scaleX(-1)' }} playsInline ref={userVideo} autoPlay className="video" />
 				</div>
