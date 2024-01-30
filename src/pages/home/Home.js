@@ -14,7 +14,8 @@ import Button from '@mui/material/Button';
 
 
 const Home = ({patient}) => {
-	const { doctors, doctor_error } = useAuthContext();
+	const { doctors, doctor_error ,user} = useAuthContext();
+	console.log("user",user)
 	const [search, setSearch] = useState("");
 
 	const handleSearch = (e) => {
@@ -29,7 +30,7 @@ const Home = ({patient}) => {
 
 			<p className="mx-3 my-0 ">Get Urgent consultation</p>
 
-		<Button onClick={()=>window.location = 'https://medicofyp.netlify.app/'} variant="contained">Go</Button>
+		<Button onClick={()=>window.location = `https://medicofyp.netlify.app/?name=${user?.displayName}&email=${user?.email}`} variant="contained">Go</Button>
 
 		</div>
 			<section className="home">
