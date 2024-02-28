@@ -30,7 +30,7 @@ const Home = ({patient}) => {
 
 			<p className="mx-3 my-0 ">Get Urgent consultation</p>
 
-		<Button onClick={()=>window.location = `https://medicofyp.netlify.app/?name=${user?.displayName}&email=${user?.email}`} variant="contained">Go</Button>
+		<Button onClick={()=>window.location = `https://medcure.netlify.app?name=${user?.displayName}&email=${user?.email}`} variant="contained">Go</Button>
 
 		</div>
 			<section className="home">
